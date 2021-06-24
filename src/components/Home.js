@@ -10,7 +10,7 @@ export default function App() {
       <div className="flex-container">
         <div className="home-container container">
           <h1 className="home-welcome-text">
-            Welcome to <img src="icon.svg" alt="QKart"></img>
+            Welcome to  <img src="icon-white.png" alt="QKart"></img>
           </h1>
 
           <p>Please select an option from below</p>
@@ -23,7 +23,12 @@ export default function App() {
             </Link>
 
             {/* TODO: CRIO_TASK_MODULE_UNDERSTANDING_BASICS - Add a Login button */}
-            
+
+            <Link to="/login">
+              <Button id="login-button" className="btn-block" type="primary" block={true}>
+                Login
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

@@ -14,3 +14,6 @@
 .home-welcome-text img {
   margin: 3px 10px 0px 10px;
 }
+.home-container {
+  border: 1px solid #d1d5da;
+}
