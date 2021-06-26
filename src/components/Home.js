@@ -10,7 +10,7 @@ export default function App() {
       <div className="flex-container">
         <div className="home-container container">
           <h1 className="home-welcome-text">
-            Welcome to  <img src="icon-white.png" alt="QKart"></img>
+            Welcome to <img src="icon.svg" alt="QKart"></img>
           </h1>
 
           <p>Please select an option from below</p>
