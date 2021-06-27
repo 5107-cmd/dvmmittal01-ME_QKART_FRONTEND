@@ -60,33 +60,63 @@ class Login extends React.Component {
    *      "message": "Password is incorrect"
    * }
    */
+  // performAPICall = async () => {
+  //   let errored = false;
+  //   let data = {};
+  //   this.setState({
+  //     loading: true
+  //   });
+  //   try {
+  //     let response = await fetch(`${config.endpoint}/auth/login`, {
+  //       method: "POST",
+  //       body: JSON.stringify({
+  //         username: this.state.username,
+  //         password: this.state.password,
+  //       }),
+  //       headers: {
+  //         "Content-type": "application/json; charset=UTF-8"
+  //       }
+  //     });
+  //     this.setState({ loading: false })
+  //     data = await response.json();
+
+  //   }
+  //   catch (e) {
+  //     errored = true;
+  //   }
+  //   if (this.validateResponse(errored, data)) {
+  //     return data;
+  //   }
+  // };
   performAPICall = async () => {
+    let response = {};
     let errored = false;
     this.setState({
-      loading: true
+      loading: true,
     });
     try {
-      let response = await fetch(`${config.endpoint}/auth/login/`, {
-        method: "POST",
-        body: JSON.stringify({
-          username: this.state.username,
-          password: this.state.password,
-        }),
-        headers: {
-          "Content-type": "application/json; charset=UTF-8"
-        }
-      });
-      this.setState({ loading: false })
-      var data = await response.json();
-
-    }
-    catch (e) {
+      response = await (
+        await fetch(`${config.endpoint}/auth/login`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            username: this.state.username,
+            password: this.state.password,
+          }),
+        })
+      ).json();
+    } catch (e) {
       errored = true;
     }
-    if (this.validateResponse(errored, data)) {
-      return data;
+    this.setState({
+      loading: false,
+    });
+    if (this.validateResponse(errored, response)) {
+      return response;
     }
-  };
+  }
 
   // TODO: CRIO_TASK_MODULE_LOGIN - Validate the input
   /**
