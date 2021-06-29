@@ -194,7 +194,6 @@ class Search extends React.Component {
     this.setState({
       filteredProducts: [...temp]
     })
-    console.log(temp);
   };
 
   // search = (text) => {
