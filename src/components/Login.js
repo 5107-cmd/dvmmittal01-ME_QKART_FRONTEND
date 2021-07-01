@@ -158,7 +158,8 @@ class Login extends React.Component {
    */
   validateResponse = (errored, response) => {
     if (errored) {
-      message.error("The call is not executed maybe checkout the backend");
+      message.error("The call is not executed maybe checkout the backend")
+      console.log(errored);;
       return false;
     }
     else if (response.success == false) {

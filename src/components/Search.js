@@ -2,12 +2,12 @@ import { Input, message } from "antd";
 import React from "react";
 import { withRouter } from "react-router-dom";
 import { config } from "../App";
+import Cart from "./Cart";
 import Header from "./Header";
 import Product from "./Product";
 import { Row, Col } from "antd";
 import Footer from "./Footer";
 import "./Search.css";
-
 
 /**
  * @typedef {Object} Product
@@ -23,6 +23,8 @@ import "./Search.css";
  * @class Search component handles the Products list page UI and functionality
  * 
  * Contains the following fields
+ * @property {React.RefObject} cartRef 
+ *    Reference to Cart component (to trigger certain methods within the cart component)
  * @property {number} debounceTimeout 
  *    Holds the return value from setTimeout() for the search bar debouncer
  * @property {Product[]} products 
@@ -258,8 +260,8 @@ class Search extends React.Component {
    * JSX and HTML goes here
    * We require a text field as the search (optionally along with a button for submitting the search query)
    * We also iterate over the filteredProducts list and display each product as a component
+   * Display Cart sidebar component if user is logged in
    */
-
   render() {
     return (
       <>
@@ -300,7 +302,16 @@ class Search extends React.Component {
             </div>
           </Col>
 
-          {/* Display cart */}
+          {this.state.loggedIn && this.products.length && (
+            <Col
+              xs={{ span: 24 }}
+              className="search-cart"
+            >
+              <div>
+                {/* TODO: CRIO_TASK_MODULE_CART - Add a Cart to the products page */}
+              </div>
+            </Col>
+          )}
         </Row>
 
         {/* Display the footer */}
