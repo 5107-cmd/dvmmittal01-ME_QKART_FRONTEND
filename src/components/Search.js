@@ -39,6 +39,7 @@ import "./Search.css";
 class Search extends React.Component {
   constructor() {
     super();
+    this.refToCart = React.createRef();
     this.debounceTimeout = 0;
     this.products = [];
     this.state = {
@@ -245,7 +246,7 @@ class Search extends React.Component {
           product={product}
           addToCart={() => {
             if (this.state.loggedIn) {
-              message.info("Cart functionality not implemented yet");
+              this.refToCart.current.pushToCart(product._id, 1, true)
             }
             else {
               this.props.history.push('/login')
@@ -285,6 +286,7 @@ class Search extends React.Component {
           {/* Display products */}
           <Col
             xs={{ span: 24 }}
+            md={{ span: 18 }}
           >
             <div className="search-container ">
               {/* Display each product item wrapped in a Col component */}
@@ -305,10 +307,15 @@ class Search extends React.Component {
           {this.state.loggedIn && this.products.length && (
             <Col
               xs={{ span: 24 }}
+              md={{ span: 6 }}
               className="search-cart"
             >
               <div>
                 {/* TODO: CRIO_TASK_MODULE_CART - Add a Cart to the products page */}
+                <Cart history={this.props.history}
+                  ref={this.refToCart}
+                  token={localStorage.getItem("token")}
+                  products={this.products} />
               </div>
             </Col>
           )}
