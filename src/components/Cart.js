@@ -293,7 +293,7 @@ export default class Cart extends React.Component {
     }
     else {
       return (
-        <InputNumber min={1} max={10} defaultValue={item.qty} onChange={(value) => { this.pushToCart(item.productId, value) }} />
+        <InputNumber min={0} max={10} defaultValue={item.qty} onChange={(value) => { this.pushToCart(item.productId, value) }} />
       )
     }
   };
