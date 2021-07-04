@@ -73,7 +73,6 @@ export default class Cart extends React.Component {
 
     if (response.message) {
       message.error(response.message);
-
       return false;
     }
 
@@ -233,6 +232,9 @@ export default class Cart extends React.Component {
    * -    Call the previously defined getCart() function asynchronously and capture the returned value in a variable
    * -    If the returned value exists,
    *      -   Update items state variable with the response (optionally add the corresponding product object of that item as a sub-field)
+   * -    If the cart is being displayed from the checkout page, or the cart is empty,
+   *      -   Display an error message
+   *      -   Redirect the user to the products listing page
    */
   refreshCart = async () => {
     const cart = await this.getCart();
@@ -248,6 +250,7 @@ export default class Cart extends React.Component {
       });
     }
 
+    // TODO: CRIO_TASK_MODULE_CHECKOUT - If the user visits "/checkout" directly and cart is empty, display an error message and redirect to the "/products" page
   };
 
   /**
@@ -278,6 +281,7 @@ export default class Cart extends React.Component {
   }
 
   // TODO: CRIO_TASK_MODULE_CART - Implement getQuantityElement(). If props.checkout is not set, display a Input field.
+  // TODO: CRIO_TASK_MODULE_CHECKOUT - Update getQuantityElement(). When displayed in the checkout page, display quantity of the item in cart (should be non-editable)
   /**
    * Creates the view for the product quantity added to cart
    *
@@ -289,7 +293,9 @@ export default class Cart extends React.Component {
 
   getQuantityElement = (item) => {
     if (this.props.checkout) {
-      return (<div className="cart-item-qty-fixed"></div>)
+      return (<div className="cart-item-qty-fixed">
+        Qty: {item.qty}
+      </div>)
     }
     else {
       return (
@@ -396,7 +402,9 @@ export default class Cart extends React.Component {
 
         {/* Display a "Checkout" button */}
         {/* TODO: CRIO_TASK_MODULE_CART - If props.checkout is not set, display a checkout button*/}
-        {!this.props.checkout && (<Button type='primary' className='ant-btn-warning' icon={<ShoppingCartOutlined />} onClick={() => { (this.state.items.length) ? message.info('Checkout functionality not implemented yet') : message.error('You must add items to cart first') }}> <strong> Checkout </strong></Button>)}
+        {!this.props.checkout && (<Button type='primary' className='ant-btn-warning' icon={<ShoppingCartOutlined />}
+          onClick={() => { (this.state.items.length) ? this.props.history.push('/checkout') : message.error('You must add items to cart first') }}>
+          <strong> Checkout </strong></Button>)}
 
         {/* Display a loading icon if the "loading" state variable is true */}
         {this.state.loading && (
